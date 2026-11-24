@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoang Thanh Nguyen</title>
+<meta name="description" content="Hoang Thanh Nguyen (Nguyễn Thanh Hoàng): geometric group theory and low-dimensional topology, FPT University, Da Nang.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: one reading column (~46rem) with a narrow left rail for dates; Cayley graph of F_2 as the hero figure. Soft sky-blue accent. */
+  --paper: #f7fafc;
+  --ink: #22303a;
+  --muted: #64758a;
+  --rule: #d8e4ee;
+  --accent: #3b8fd0;
+  --accent-deep: #2b77b5;
+  --accent-soft: #e6f2fb;
+  --font-display: "Source Serif 4", "Georgia", "Times New Roman", serif;
+  --font-body: "Source Serif 4", "Georgia", "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --col: 46rem;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131a21;
+    --ink: #e2eaf1;
+    --muted: #93a6b8;
+    --rule: #26333f;
+    --accent: #8cc8f2;
+    --accent-deep: #a9d6f6;
+    --accent-soft: #1a2a38;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #131a21;
+  --ink: #e2eaf1;
+  --muted: #93a6b8;
+  --rule: #26333f;
+  --accent: #8cc8f2;
+  --accent-deep: #a9d6f6;
+  --accent-soft: #1a2a38;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+a { color: var(--accent-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--accent); text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; margin: 0; color: var(--accent-deep); }
+.wrap { max-width: var(--col); margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.top {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; flex-wrap: wrap; }
+.brand { font-family: var(--font-ui); font-weight: 600; font-size: .92rem; color: var(--accent-deep); text-decoration: none; letter-spacing: .01em; }
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
+nav a { font-family: var(--font-ui); font-size: .85rem; color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { padding: 48px 0 28px; display: grid; grid-template-columns: 1fr 200px; gap: 28px; align-items: center; }
+.hero h1 { font-size: clamp(2rem, 5vw, 2.7rem); font-weight: 700; letter-spacing: -.01em; color: var(--accent); }
+.hero .vn { font-family: var(--font-ui); font-size: .9rem; color: var(--muted); margin-top: 6px; }
+.hero p.lead { margin: 16px 0 0; font-size: 1.1rem; }
+.hero .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip {
+  font-family: var(--font-ui); font-size: .82rem; font-weight: 500;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 4px 12px;
+  color: var(--accent-deep); text-decoration: none; background: var(--accent-soft);
+}
+.chip:hover { border-color: var(--accent); }
+.figure { position: relative; width: 200px; height: 200px; }
+.figure canvas { width: 200px; height: 200px; display: block; }
+.figure .cap { position: absolute; bottom: -22px; left: 0; right: 0; text-align: center; font-family: var(--font-ui); font-size: .72rem; color: var(--muted); }
+.photo {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 74px; height: 74px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--accent);
+  display: grid; place-items: center;
+  font-family: var(--font-ui); font-weight: 600; font-size: .95rem; color: var(--accent);
+}
+
+/* Sections */
+section { padding: 36px 0 8px; border-top: 1px solid var(--rule); margin-top: 28px; }
+section > h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; }
+.kicker { font-family: var(--font-ui); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.sub { font-family: var(--font-ui); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 26px 0 10px; }
+.plain { margin: 0; padding-left: 1.1rem; }
+.plain li { margin: 4px 0; }
+
+/* Dated rows */
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.rows li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 16px; }
+.yr { font-family: var(--font-ui); font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.rows strong { font-weight: 600; }
+.rows .note { display: block; color: var(--muted); font-size: .95rem; }
+
+/* Papers */
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.filters button {
+  font-family: var(--font-ui); font-size: .8rem; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 4px 11px;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.papers { list-style: none; margin: 0; padding: 0; }
+.paper { display: grid; grid-template-columns: 3.2rem 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.paper .n { font-family: var(--font-ui); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+.paper .t { font-weight: 600; }
+.paper .a { color: var(--muted); font-size: .97rem; }
+.paper .v { font-style: italic; font-size: .97rem; }
+.paper .l { font-family: var(--font-ui); font-size: .8rem; margin-top: 3px; display: flex; gap: 12px; flex-wrap: wrap; }
+.paper .tag { font-family: var(--font-ui); font-size: .7rem; color: var(--accent-deep); background: var(--accent-soft); border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 500; vertical-align: 2px; font-style: normal; }
+.paper.hidden { display: none; }
+.count { font-family: var(--font-ui); font-size: .8rem; color: var(--muted); margin: -8px 0 12px; }
+
+/* Talks */
+.talks { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.talks > li > .tt { font-style: italic; font-weight: 600; color: var(--ink); }
+.talks ul { margin: 4px 0 0; padding-left: 1.1rem; }
+.talks ul li { margin: 2px 0; }
+
+footer { border-top: 1px solid var(--rule); margin-top: 40px; padding: 22px 0 40px; font-family: var(--font-ui); font-size: .8rem; color: var(--muted); }
+
+@media (max-width: 620px) {
+  .hero { grid-template-columns: 1fr; padding-top: 28px; }
+  .figure { order: -1; margin: 0 auto 10px; }
+  .rows li { grid-template-columns: 1fr; gap: 0; }
+  .paper { grid-template-columns: 2.2rem 1fr; }
+  nav ul { gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">Hoang Thanh Nguyen</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#background">Background</a></li>
+        <li><a href="#papers">Papers</a></li>
+        <li><a href="#talks">Talks</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Hoang Thanh Nguyen</h1>
+      <div class="vn">Nguyễn Thanh Hoàng · Lecturer-Researcher, FPT University, Da Nang</div>
+      <p class="lead">My research interests are in geometric group theory and low-dimensional topology: quasi-isometric classification and rigidity, commensurability classification, the geometric relationship between a group and its subgroups (subgroup distortion, quasiconvexity), and groups acting on finite products of quasi-trees.</p>
+      <div class="links">
+        <a class="chip" href="https://scholar.google.com/citations?user=E7j8MS0AAAAJ&amp;hl=en">Google Scholar</a>
+        <a class="chip" href="https://drive.google.com/file/d/1HPpetVfyEK75kTZuFKnOEDkCIvfifDhr/view?usp=sharing">CV (PDF)</a>
+        <a class="chip" href="#contact">Email</a>
+      </div>
+    </div>
+    <div class="figure" aria-hidden="true">
+      <canvas id="cayley" width="400" height="400"></canvas>
+      <div class="photo">Photo</div>
+      <div class="cap">Cayley graph of F<sub>2</sub></div>
+    </div>
+  </div>
+
+  <section id="background">
+    <div class="kicker">Background</div>
+    <h2>Employment and education</h2>
+    <ul class="rows">
+      <li><div class="yr">Jul 2023 – present</div><div><strong>Lecturer-Researcher</strong><span class="note">Department of Mathematics, FPT University, Da Nang</span></div></li>
+      <li><div class="yr">Sep 2021 – 2023</div><div><strong>Lecturer</strong><span class="note">Da Nang University of Education</span></div></li>
+      <li><div class="yr">Sep 2019 – Aug 2021</div><div><strong>Boya Postdoctoral Fellow</strong><span class="note">Beijing International Center for Mathematical Research (BICMR), Peking University. Advisor: <a href="https://faculty.bicmr.pku.edu.cn/~wyang/">Wenyuan Yang</a></span></div></li>
+      <li><div class="yr">2014 – 2019</div><div><strong>Ph.D. in Mathematics</strong><span class="note">University of Wisconsin–Milwaukee, USA. Advisor: <a href="https://sites.uwm.edu/chruska/about/">Chris Hruska</a></span></div></li>
+      <li><div class="yr">2012 – 2013</div><div><strong>M.S. in Mathematics</strong><span class="note">New Mexico State University, USA</span></div></li>
+      <li><div class="yr">2007 – 2011</div><div><strong>B.S. in Mathematics</strong><span class="note">Da Nang University of Education, Vietnam</span></div></li>
+    </ul>
+
+    <div class="sub">Awards</div>
+    <ul class="rows">
+      <li><div class="yr">2021</div><div>Scientific Prize of the Institute of Mathematics, Vietnam Academy of Science and Technology</div></li>
+      <li><div class="yr">2016, 2017, 2018</div><div>Mark Lawrence Teply Award for outstanding research potential, University of Wisconsin–Milwaukee</div></li>
+      <li><div class="yr">2009</div><div>Second Prize (Analysis), Vietnam Undergraduate Mathematics Competition</div></li>
+      <li><div class="yr">2006</div><div>First Prize, Da Nang Province High School Mathematics Competition</div></li>
+    </ul>
+
+    <div class="sub">Grants</div>
+    <ul class="plain">
+      <li>Principal Investigator, Project ICRTM04_2021.07, International Centre for Research and Postgraduate Training in Mathematics (UNESCO centre), Vietnam</li>
+      <li>NAFOSTED, grant 101.04-2023.33</li>
+      <li>National Key Program for the Development of Mathematics, grant B2024-CTT-04</li>
+    </ul>
+
+    <div class="sub">Service</div>
+    <ul class="plain">
+      <li>Reviewer for Mathematical Reviews and zbMATH</li>
+      <li>Referee for Groups, Geometry, and Dynamics; Geometriae Dedicata; New York Journal of Mathematics; International Mathematics Research Notices</li>
+    </ul>
+  </section>
+
+  <section id="papers">
+    <div class="kicker">Publications</div>
+    <h2>Papers and preprints</h2>
+    <div class="filters" role="group" aria-label="Filter papers by topic">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="3m" aria-pressed="false">3-manifolds</button>
+      <button type="button" data-f="adm" aria-pressed="false">Admissible groups</button>
+      <button type="button" data-f="fbc" aria-pressed="false">Free-by-cyclic</button>
+      <button type="button" data-f="bd" aria-pressed="false">Boundaries</button>
+      <button type="button" data-f="cox" aria-pressed="false">Coxeter groups</button>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <ol class="papers" id="paperlist"></ol>
+  </section>
+
+  <section id="talks">
+    <div class="kicker">Talks</div>
+    <h2>Research talks</h2>
+    <p style="margin:-6px 0 16px;color:var(--muted)">All invited.</p>
+    <ul class="talks">
+      <li><span class="tt">Quasi-isometric rigidity of extended admissible groups</span>
+        <ul>
+          <li>Vietnam–Korea Joint Meeting on Algebra, Geometry and Topology 2026</li>
+          <li>2026 KAIST–VIASM Annual Meeting on Mathematical Sciences, VIASM, Hanoi, October 2026</li>
+        </ul></li>
+      <li><span class="tt">Quasi-redirecting boundaries of nonpositively curved groups</span>
+        <ul>
+          <li>Geometry and Dynamics in Low Dimensions, Hanoi, January 2025</li>
+          <li>The 3rd Vietnam–Korea Joint Workshop on Selected Topics in Mathematics</li>
+          <li>KAIST–KIAS Geometry and Topology Exploration I, Korea Institute for Advanced Study, 2025</li>
+          <li>Geometry and Analysis on Groups Research Seminar, University of Vienna, 2025</li>
+        </ul></li>
+      <li><span class="tt">Property (QT) of 3-manifold groups</span>
+        <ul>
+          <li>Ohio State University, November 2023</li>
+          <li>Vietnam Institute of Mathematics, September 2021</li>
+        </ul></li>
+      <li><span class="tt">Coarse geometry of Croke–Kleiner admissible groups</span>
+        <ul><li>Japan–Vietnam 2022 Workshop, December 2022</li></ul></li>
+      <li><span class="tt">Sublinearly Morse boundary of CAT(0) admissible groups</span>
+        <ul><li>Vietnam Institute of Mathematics, June 2022</li></ul></li>
+      <li><span class="tt">Quasiconvexity in Croke–Kleiner admissible groups</span>
+        <ul><li>Vietnam Institute of Mathematics, March 2022</li></ul></li>
+      <li><span class="tt">Largest hyperbolic actions of 3-manifold groups</span>
+        <ul><li>Japan–Vietnam 2021 Workshop</li></ul></li>
+      <li><span class="tt">Subgroup distortion in 3-manifold groups</span>
+        <ul>
+          <li>Vanderbilt University, February 2021</li>
+          <li>University of Oklahoma, September 2020</li>
+          <li>School of Mathematical Sciences, Peking University, October 2019</li>
+          <li>University of Wisconsin–Milwaukee, April 2019</li>
+        </ul></li>
+      <li><span class="tt">Quasiconvexity in 3-manifold groups</span>
+        <ul><li>Geometric Group Theory in East Asia, October 2020</li></ul></li>
+      <li><span class="tt">On the coarse geometry of certain right-angled Coxeter groups</span>
+        <ul><li>University of Wisconsin–Milwaukee, Topology Seminar, October 2019</li></ul></li>
+      <li><span class="tt">Quasi-isometry classification of certain right-angled Coxeter groups</span>
+        <ul><li>University of Wisconsin–Milwaukee, March 2018</li></ul></li>
+      <li><span class="tt">Distortion of surfaces in 3-manifolds</span>
+        <ul>
+          <li>AMS Sectional Meeting, Vanderbilt University, April 2018</li>
+          <li>52nd Spring Topology and Dynamics Conference, Auburn University, March 2018</li>
+          <li>Columbia University, February 2018</li>
+          <li>University of Wisconsin–Milwaukee, Topology Seminar, September 2017</li>
+        </ul></li>
+      <li><span class="tt">Quasi-isometry of pairs: surfaces in graph manifolds</span>
+        <ul><li>University of Wisconsin–Milwaukee, Topology Seminar, October 2017</li></ul></li>
+      <li><span class="tt">Distortion of surfaces in graph manifolds</span>
+        <ul>
+          <li>Workshop in Geometric Topology, Brigham Young University, Provo, Utah, June 2017</li>
+          <li>University of Wisconsin–Milwaukee, Topology Seminar, November 2015 and September 2016</li>
+        </ul></li>
+    </ul>
+
+    <div class="sub">Expository talks</div>
+    <ul class="rows">
+      <li><div class="yr">Spring 2015</div><div><em>Lattices and locally symmetric spaces</em>, UWM Student Topology Seminar</div></li>
+      <li><div class="yr">Fall 2014</div><div><em>CAT(0) and hyperbolic spaces</em>, UWM Student Topology Seminar</div></li>
+      <li><div class="yr">Spring 2014</div><div><em>Geometry of infinite groups</em>, UWM Student Topology Seminar</div></li>
+    </ul>
+
+    <div class="sub">Conferences attended</div>
+    <ul class="rows">
+      <li><div class="yr">June 2016</div><div>Topology Students Workshop, Georgia Institute of Technology</div></li>
+      <li><div class="yr">2016</div><div>50th Spring Topology and Dynamics Conference, Baylor University</div></li>
+      <li><div class="yr">2015</div><div>49th Spring Topology and Dynamics Conference, Bowling Green State University</div></li>
+    </ul>
+  </section>
+
+  <section id="teaching">
+    <div class="kicker">Teaching</div>
+    <h2>Teaching</h2>
+    <ul class="rows">
+      <li><div class="yr">2023 – present</div><div><strong>FPT University, Da Nang campus</strong>
+        <span class="note">Mathematics for Engineering (MAE101): Fall 2023 – Fall 2024</span>
+        <span class="note">Discrete Mathematics (MAD101): Spring 2024 – Fall 2024, Summer 2025</span>
+        <span class="note">Statistics &amp; Probability (MAS101): Spring 2025</span></div></li>
+      <li><div class="yr">Summer 2022</div><div><strong>Duy Tan University</strong> (visiting)<span class="note">Calculus II, American Degree Program</span></div></li>
+      <li><div class="yr">Spring 2022</div><div><strong>Da Nang University of Science and Technology</strong><span class="note">Calculus II (high-quality program)</span></div></li>
+      <li><div class="yr">Fall 2019</div><div><strong>Beijing Jiaotong University</strong><span class="note">Introduction to 3-manifolds</span></div></li>
+      <li><div class="yr">2014 – 2019</div><div><strong>University of Wisconsin–Milwaukee</strong>, instructor
+        <span class="note">Math 233 Calculus III (3 semesters), Math 232 Calculus II, Math 231 Calculus I</span>
+        <span class="note">Math 211 Survey in Calculus and Analytic Geometry, online (3 semesters)</span>
+        <span class="note">Math 116 College Algebra, Math 105 Intermediate Algebra</span>
+        <span class="note">Grader for Math 234 Linear Algebra and Differential Equations</span></div></li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <div class="kicker">Contact</div>
+    <h2>Contact</h2>
+    <p style="margin:0">Department of Mathematics, FPT University, Da Nang, Vietnam</p>
+    <p style="margin:6px 0 0">Email: <a href="mailto:nthoang.math@gmail.com">nthoang.math@gmail.com</a> · <a href="mailto:hoangnt63@fe.edu.vn">hoangnt63@fe.edu.vn</a></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Last updated November 2026.</div>
+</footer>
+
+<script>
+/* Newest first, in the order of the CV. */
+const PAPERS = [
+  {t:"Subgroup distortion in free-by-cyclic groups with linearly growing monodromy", a:"", v:"Preprint, 2026", tags:["fbc"], pre:true, l:[]},
+  {t:"Quasi-isometric rigidity of extended admissible groups", a:"with Alex Margolis", v:"Journal of the London Mathematical Society, to appear", tags:["adm"], l:[["Journal","https://londmathsoc.onlinelibrary.wiley.com/doi/10.1112/jlms.70657"],["PDF","https://drive.google.com/file/d/1ReGHgBQu0M6TcBgtfoARNVJAbFY8B9He/view?usp=sharing"]]},
+  {t:"Quasi-redirecting boundaries of groups with linear divergence and 3-manifold groups", a:"", v:"Geometriae Dedicata 220 (2026), 30", tags:["bd","3m"], l:[["Journal","https://link.springer.com/article/10.1007/s10711-026-01084-z"],["arXiv:2505.06790","https://arxiv.org/abs/2505.06790"],["PDF","https://drive.google.com/file/d/1IuvGolmNO3VR3Ze6P163CcwK0OkgRzVW/view?usp=sharing"]]},
+  {t:"Quasi-redirecting boundaries of nonpositively curved groups", a:"with Yulan Qing", v:"Groups, Geometry, and Dynamics, to appear", tags:["bd","3m"], l:[["arXiv:2503.22994","https://arxiv.org/abs/2503.22994"],["PDF","https://drive.google.com/file/d/1V4qgucmu9jEm5LI7ddGuqaMIPZO8jpIY/view?usp=sharing"]]},
+  {t:"Coarse geometry of extended admissible groups", a:"with Toan Trong Dao", v:"Submitted", tags:["adm"], pre:true, l:[["arXiv:2512.24784","https://arxiv.org/abs/2512.24784"]]},
+  {t:"Separability properties of extended admissible groups", a:"", v:"Forum Mathematicum 38(2) (2026), 519–537", tags:["adm"], l:[["Journal","https://www.degruyterbrill.com/document/doi/10.1515/forum-2024-0194/html"],["PDF","https://drive.google.com/file/d/17nrGMS_l-AvhJE4NuXq4-Ybw1uupGXNU/view?usp=sharing"]]},
+  {t:"Property (QT) of 3-manifold groups", a:"with Suzhen Han and Wenyuan Yang", v:"Algebraic & Geometric Topology 25 (2025), 107–159", tags:["3m"], l:[["Journal","https://msp.org/agt/2025/25-1/p04.xhtml"],["PDF","https://msp.org/agt/2025/25-1/agt-v25-n1-p04-s.pdf"]]},
+  {t:"Some remarks on subgroups of free-by-cyclic groups", a:"with Minh Nhat Doan", v:"Vietnam Journal of Mathematics 54 (2026), 715–728", tags:["fbc"], l:[["Journal","https://link.springer.com/article/10.1007/s10013-025-00762-x"]]},
+  {t:"Sublinearly Morse boundary of CAT(0) admissible groups", a:"with Yulan Qing", v:"Journal of Group Theory 27(4) (2024), 857–897", tags:["adm","bd"], l:[["Journal","https://www.degruyter.com/document/doi/10.1515/jgth-2023-0145/html"],["PDF","https://www.researchgate.net/publication/358975937_Sublinearly_Morse_Boundary_of_CAT0_admissible_groups"]]},
+  {t:"Largest hyperbolic action of 3-manifold groups", a:"with Carolyn Abbott and Alex Rasmussen", v:"Bulletin of the London Mathematical Society 56 (2024)", tags:["3m"], l:[["Journal","https://londmathsoc.onlinelibrary.wiley.com/doi/10.1112/blms.13118"],["arXiv:2305.07425","https://arxiv.org/abs/2305.07425"],["PDF","https://drive.google.com/file/d/1IX5r5bMHN4Gx2IGmxAqFn3JG2YQAvvo5/view?usp=sharing"]]},
+  {t:"Finite height subgroups of extended admissible groups", a:"", v:"New York Journal of Mathematics 30 (2024), 1220–1234", tags:["adm"], l:[["PDF","https://nyjm.albany.edu/j/2024/30-54v.pdf"]]},
+  {t:"Strongly quasiconvex subgroups in amalgams and HNN extensions", a:"with Hung Cong Tran", v:"International Journal of Algebra and Computation 33(3) (2023), 435–444", tags:["fbc"], l:[["Journal","https://www.worldscientific.com/doi/abs/10.1142/S0218196723500212"],["PDF","https://drive.google.com/file/d/1BckLpSTS9sxFolMBEXS9Ve2an0L_PEzf/view?usp=sharing"]]},
+  {t:"Croke–Kleiner admissible groups: Property (QT) and quasiconvexity", a:"with Wenyuan Yang", v:"Michigan Mathematical Journal 73 (2023), 971–1019", tags:["adm"], l:[["Journal","https://projecteuclid.org/journals/michigan-mathematical-journal/advance-publication/CrokeKleiner-Admissible-Groups-Property-QT-and-Quasiconvexity/10.1307/mmj/20216045.short"]]},
+  {t:"Quasiconvexity in 3-manifold groups", a:"with Hung Cong Tran and Wenyuan Yang", v:"Mathematische Annalen 381 (2021), 405–437", tags:["3m"], l:[["Journal","https://link.springer.com/article/10.1007/s00208-020-02044-y"]]},
+  {t:"Subgroup distortion of 3-manifold groups", a:"with Hongbin Sun", v:"Transactions of the American Mathematical Society 373(9) (2020), 6683–6711", tags:["3m"], l:[["Journal","https://www.ams.org/journals/tran/2020-373-09/S0002-9947-2020-08139-2/home.html"]]},
+  {t:"Distortion of surfaces in 3-manifolds", a:"", v:"Journal of Topology 12(4) (2019), 1115–1145", tags:["3m"], l:[["Journal","https://londmathsoc.onlinelibrary.wiley.com/doi/abs/10.1112/topo.12114"]]},
+  {t:"On the relative hyperbolicity and manifold structure of certain right-angled Coxeter groups", a:"with Hung Cong Tran and Matthew Haulmark", v:"International Journal of Algebra and Computation 30(3) (2020), 501–537", tags:["cox"], l:[["Journal","https://www.worldscientific.com/doi/abs/10.1142/S0218196720500095"]]},
+  {t:"On the coarse geometry of certain right-angled Coxeter groups", a:"with Hung Cong Tran", v:"Algebraic & Geometric Topology 19(6) (2019), 3075–3118", tags:["cox"], l:[["Journal","https://projecteuclid.org/euclid.agt/1572314550"]]},
+  {t:"Quasi-isometry of pairs: surfaces in graph manifolds", a:"", v:"International Journal of Algebra and Computation 29(4) (2019), 681–698", tags:["3m"], l:[["Journal","https://www.worldscientific.com/doi/abs/10.1142/S0218196719500218"]]},
+  {t:"Distortion of surfaces in graph manifolds", a:"with Chris Hruska", v:"Algebraic & Geometric Topology 19 (2019), 363–395", tags:["3m"], l:[["Journal","https://projecteuclid.org/euclid.agt/1549940436"]]}
+];
+
+const list = document.getElementById('paperlist');
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const N = PAPERS.length;
+PAPERS.forEach((p,i)=>{
+  const num = N - i;
+  const li = document.createElement('li');
+  li.className = 'paper';
+  li.dataset.tags = p.tags.join(' ');
+  li.innerHTML =
+    '<div class="n">[' + num + ']</div><div>' +
+    '<div class="t">' + esc(p.t) + (p.pre ? '<span class="tag">preprint</span>' : '') + '</div>' +
+    (p.a ? '<div class="a">' + esc(p.a) + '</div>' : '') +
+    '<div class="v">' + esc(p.v) + '</div>' +
+    (p.l.length ? '<div class="l">' + p.l.map(x=>'<a href="'+x[1]+'">'+esc(x[0])+'</a>').join('') + '</div>' : '') +
+    '</div>';
+  list.appendChild(li);
+});
+const countEl = document.getElementById('count');
+function applyFilter(f){
+  let shown = 0;
+  list.querySelectorAll('.paper').forEach(li=>{
+    const on = f==='all' || li.dataset.tags.split(' ').includes(f);
+    li.classList.toggle('hidden', !on);
+    if (on) shown++;
+  });
+  countEl.textContent = shown + ' of ' + N + ' papers';
+  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.f===f ? 'true':'false'));
+}
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>applyFilter(b.dataset.f)));
+applyFilter('all');
+
+/* Cayley graph of F_2 = <a,b>, edge length halving at each level */
+function drawCayley(){
+  const c = document.getElementById('cayley');
+  const ctx = c.getContext('2d');
+  const cs = getComputedStyle(document.documentElement);
+  const accent = cs.getPropertyValue('--accent').trim();
+  const faint = cs.getPropertyValue('--rule').trim();
+  ctx.clearRect(0,0,c.width,c.height);
+  const dirs = [[1,0],[0,1],[-1,0],[0,-1]];
+  const W = c.width/2;
+  function rec(x,y,len,from,depth){
+    if (depth===0) return;
+    dirs.forEach((d,k)=>{
+      if (from!==null && k===(from+2)%4) return;
+      const nx = x + d[0]*len, ny = y + d[1]*len;
+      ctx.strokeStyle = depth > 3 ? accent : faint;
+      ctx.lineWidth = Math.max(0.6, depth*0.55);
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(nx,ny); ctx.stroke();
+      rec(nx,ny,len/2,k,depth-1);
+    });
+  }
+  rec(W,W,W*0.5,null,7);
+}
+drawCayley();
+try {
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawCayley);
+  new MutationObserver(drawCayley).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+} catch(e) {}
+</script>
+</body>
+</html>
