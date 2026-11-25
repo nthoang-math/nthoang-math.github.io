@@ -141,6 +141,16 @@ section > h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; }
 .paper.hidden { display: none; }
 .count { font-family: var(--font-ui); font-size: .8rem; color: var(--muted); margin: -8px 0 12px; }
 
+/* Talks by year */
+.talkyears { display: grid; gap: 18px; }
+.ty { display: grid; grid-template-columns: 4rem 1fr; gap: 16px; }
+.tyear { font-family: var(--font-ui); font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 1px; }
+.tlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.tlist li { display: grid; grid-template-columns: 2.6rem 1fr; gap: 10px; }
+.tm { font-family: var(--font-ui); font-size: .82rem; color: var(--muted); padding-top: 3px; }
+.tlist em { font-style: italic; }
+.tv { display: block; color: var(--muted); font-size: .95rem; }
+@media (max-width: 620px) { .ty { grid-template-columns: 1fr; gap: 6px; } }
 /* Talks */
 .talks { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
 .talks > li > .tt { font-style: italic; font-weight: 600; color: var(--ink); }
@@ -246,60 +256,57 @@ footer { border-top: 1px solid var(--rule); margin-top: 40px; padding: 22px 0 40
     <div class="kicker">Talks</div>
     <h2>Research talks</h2>
     <p style="margin:-6px 0 16px;color:var(--muted)">All invited.</p>
-    <ul class="talks">
-      <li><span class="tt">Quasi-isometric rigidity of extended admissible groups</span>
-        <ul>
-          <li>Vietnam–Korea Joint Meeting on Algebra, Geometry and Topology 2026</li>
-          <li>2026 KAIST–VIASM Annual Meeting on Mathematical Sciences, VIASM, Hanoi, October 2026</li>
-        </ul></li>
-      <li><span class="tt">Quasi-redirecting boundaries of nonpositively curved groups</span>
-        <ul>
-          <li>Geometry and Dynamics in Low Dimensions, Hanoi, January 2025</li>
-          <li>The 3rd Vietnam–Korea Joint Workshop on Selected Topics in Mathematics</li>
-          <li>KAIST–KIAS Geometry and Topology Exploration I, Korea Institute for Advanced Study, 2025</li>
-          <li>Geometry and Analysis on Groups Research Seminar, University of Vienna, 2025</li>
-        </ul></li>
-      <li><span class="tt">Property (QT) of 3-manifold groups</span>
-        <ul>
-          <li>Ohio State University, November 2023</li>
-          <li>Vietnam Institute of Mathematics, September 2021</li>
-        </ul></li>
-      <li><span class="tt">Coarse geometry of Croke–Kleiner admissible groups</span>
-        <ul><li>Japan–Vietnam 2022 Workshop, December 2022</li></ul></li>
-      <li><span class="tt">Sublinearly Morse boundary of CAT(0) admissible groups</span>
-        <ul><li>Vietnam Institute of Mathematics, June 2022</li></ul></li>
-      <li><span class="tt">Quasiconvexity in Croke–Kleiner admissible groups</span>
-        <ul><li>Vietnam Institute of Mathematics, March 2022</li></ul></li>
-      <li><span class="tt">Largest hyperbolic actions of 3-manifold groups</span>
-        <ul><li>Japan–Vietnam 2021 Workshop</li></ul></li>
-      <li><span class="tt">Subgroup distortion in 3-manifold groups</span>
-        <ul>
-          <li>Vanderbilt University, February 2021</li>
-          <li>University of Oklahoma, September 2020</li>
-          <li>School of Mathematical Sciences, Peking University, October 2019</li>
-          <li>University of Wisconsin–Milwaukee, April 2019</li>
-        </ul></li>
-      <li><span class="tt">Quasiconvexity in 3-manifold groups</span>
-        <ul><li>Geometric Group Theory in East Asia, October 2020</li></ul></li>
-      <li><span class="tt">On the coarse geometry of certain right-angled Coxeter groups</span>
-        <ul><li>University of Wisconsin–Milwaukee, Topology Seminar, October 2019</li></ul></li>
-      <li><span class="tt">Quasi-isometry classification of certain right-angled Coxeter groups</span>
-        <ul><li>University of Wisconsin–Milwaukee, March 2018</li></ul></li>
-      <li><span class="tt">Distortion of surfaces in 3-manifolds</span>
-        <ul>
-          <li>AMS Sectional Meeting, Vanderbilt University, April 2018</li>
-          <li>52nd Spring Topology and Dynamics Conference, Auburn University, March 2018</li>
-          <li>Columbia University, February 2018</li>
-          <li>University of Wisconsin–Milwaukee, Topology Seminar, September 2017</li>
-        </ul></li>
-      <li><span class="tt">Quasi-isometry of pairs: surfaces in graph manifolds</span>
-        <ul><li>University of Wisconsin–Milwaukee, Topology Seminar, October 2017</li></ul></li>
-      <li><span class="tt">Distortion of surfaces in graph manifolds</span>
-        <ul>
-          <li>Workshop in Geometric Topology, Brigham Young University, Provo, Utah, June 2017</li>
-          <li>University of Wisconsin–Milwaukee, Topology Seminar, November 2015 and September 2016</li>
-        </ul></li>
-    </ul>
+    <div class="talkyears">
+<div class="ty"><div class="tyear">2026</div><ul class="tlist">
+<li><span class="tm">Oct</span><span><em>Quasi-isometric rigidity of extended admissible groups</em><span class="tv">2026 KAIST–VIASM Annual Meeting on Mathematical Sciences, VIASM, Hanoi</span></span></li>
+<li><span class="tm"></span><span><em>Quasi-isometric rigidity of extended admissible groups</em><span class="tv">Vietnam–Korea Joint Meeting on Algebra, Geometry and Topology</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2025</div><ul class="tlist">
+<li><span class="tm">Jan</span><span><em>Quasi-redirecting boundaries of nonpositively curved groups</em><span class="tv">Geometry and Dynamics in Low Dimensions, Hanoi</span></span></li>
+<li><span class="tm"></span><span><em>Quasi-redirecting boundaries of nonpositively curved groups</em><span class="tv">KAIST–KIAS Geometry and Topology Exploration I, Korea Institute for Advanced Study</span></span></li>
+<li><span class="tm"></span><span><em>Quasi-redirecting boundaries of nonpositively curved groups</em><span class="tv">Geometry and Analysis on Groups Research Seminar, University of Vienna</span></span></li>
+<li><span class="tm"></span><span><em>Quasi-redirecting boundaries of nonpositively curved groups</em><span class="tv">The 3rd Vietnam–Korea Joint Workshop on Selected Topics in Mathematics</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2023</div><ul class="tlist">
+<li><span class="tm">Nov</span><span><em>Property (QT) of 3-manifold groups</em><span class="tv">Ohio State University</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2022</div><ul class="tlist">
+<li><span class="tm">Dec</span><span><em>Coarse geometry of Croke–Kleiner admissible groups</em><span class="tv">Japan–Vietnam 2022 Workshop</span></span></li>
+<li><span class="tm">Jun</span><span><em>Sublinearly Morse boundary of CAT(0) admissible groups</em><span class="tv">Vietnam Institute of Mathematics</span></span></li>
+<li><span class="tm">Mar</span><span><em>Quasiconvexity in Croke–Kleiner admissible groups</em><span class="tv">Vietnam Institute of Mathematics</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2021</div><ul class="tlist">
+<li><span class="tm">Sep</span><span><em>Property (QT) of 3-manifold groups</em><span class="tv">Vietnam Institute of Mathematics</span></span></li>
+<li><span class="tm">Feb</span><span><em>Subgroup distortion in 3-manifold groups</em><span class="tv">Vanderbilt University</span></span></li>
+<li><span class="tm"></span><span><em>Largest hyperbolic actions of 3-manifold groups</em><span class="tv">Japan–Vietnam 2021 Workshop</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2020</div><ul class="tlist">
+<li><span class="tm">Oct</span><span><em>Quasiconvexity in 3-manifold groups</em><span class="tv">Geometric Group Theory in East Asia</span></span></li>
+<li><span class="tm">Sep</span><span><em>Subgroup distortion in 3-manifold groups</em><span class="tv">University of Oklahoma</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2019</div><ul class="tlist">
+<li><span class="tm">Oct</span><span><em>Subgroup distortion in 3-manifold groups</em><span class="tv">School of Mathematical Sciences, Peking University</span></span></li>
+<li><span class="tm">Oct</span><span><em>On the coarse geometry of certain right-angled Coxeter groups</em><span class="tv">Topology Seminar, University of Wisconsin–Milwaukee</span></span></li>
+<li><span class="tm">Apr</span><span><em>Subgroup distortion in 3-manifold groups</em><span class="tv">University of Wisconsin–Milwaukee</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2018</div><ul class="tlist">
+<li><span class="tm">Apr</span><span><em>Distortion of surfaces in 3-manifolds</em><span class="tv">AMS Sectional Meeting, Vanderbilt University</span></span></li>
+<li><span class="tm">Mar</span><span><em>Distortion of surfaces in 3-manifolds</em><span class="tv">52nd Spring Topology and Dynamics Conference, Auburn University</span></span></li>
+<li><span class="tm">Mar</span><span><em>Quasi-isometry classification of certain right-angled Coxeter groups</em><span class="tv">University of Wisconsin–Milwaukee</span></span></li>
+<li><span class="tm">Feb</span><span><em>Distortion of surfaces in 3-manifolds</em><span class="tv">Columbia University</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2017</div><ul class="tlist">
+<li><span class="tm">Oct</span><span><em>Quasi-isometry of pairs: surfaces in graph manifolds</em><span class="tv">Topology Seminar, University of Wisconsin–Milwaukee</span></span></li>
+<li><span class="tm">Sep</span><span><em>Distortion of surfaces in 3-manifolds</em><span class="tv">Topology Seminar, University of Wisconsin–Milwaukee</span></span></li>
+<li><span class="tm">Jun</span><span><em>Distortion of surfaces in graph manifolds</em><span class="tv">Workshop in Geometric Topology, Brigham Young University, Provo, Utah</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2016</div><ul class="tlist">
+<li><span class="tm">Sep</span><span><em>Distortion of surfaces in graph manifolds</em><span class="tv">Topology Seminar, University of Wisconsin–Milwaukee</span></span></li>
+</ul></div>
+<div class="ty"><div class="tyear">2015</div><ul class="tlist">
+<li><span class="tm">Nov</span><span><em>Distortion of surfaces in graph manifolds</em><span class="tv">Topology Seminar, University of Wisconsin–Milwaukee</span></span></li>
+</ul></div>
+</div>
 
     <div class="sub">Expository talks</div>
     <ul class="rows">
